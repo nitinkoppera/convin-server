@@ -19,6 +19,14 @@ server.use((req, res, next) => {
     next()
 })
 
+// New middleware for mocking POST requests
+server.use(jsonServer.bodyParser)
+server.post('/api/items', (req, res) => {
+  const { title,url,category } = req.body
+  const newItem = { title,url,category }
+  res.status(201).json(newItem)
+})
+
 server.use(router)
 server.listen(process.env.PORT || 8000, () => {
     console.log('JSON Server is running')
