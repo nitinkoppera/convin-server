@@ -11,7 +11,7 @@ const router = jsonServer.router(isProductionEnv ? clone(data) : 'db.json', {
 })
 
 // Add a new route for POST method to create a new resource
-router.post('/videos', (req, res) => {
+router.post('/', (req, res) => {
     const { title, url, category } = req.body;
     const newResource = { title, url, category };
 
