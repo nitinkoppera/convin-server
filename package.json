@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=development node server.js",
-    "start": "NODE_ENV=production node server.js",
+    "start": "NODE_ENV=production node server.js json-server --watch db.json",
     "watch": "json-server --watch db.json --port=8000"
   },
   "author": "",
