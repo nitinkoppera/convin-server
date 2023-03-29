@@ -19,7 +19,7 @@ router.post('/videos', (req, res) => {
     router.db.get('videos').push(newResource).write();
 
     // Respond with the newly created resource
-    res.status(201).json({newResource.category,newResource.category});
+    res.status(201).json({category});
 });
 
 const middlewares = jsonServer.defaults()
