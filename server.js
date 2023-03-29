@@ -9,6 +9,19 @@ const server = jsonServer.create()
 const router = jsonServer.router(isProductionEnv ? clone(data) : 'db.json', {
     _isFake: isProductionEnv
 })
+
+// Add a new route for POST method to create a new resource
+router.post('/videos', (req, res) => {
+    const { title, url, category } = req.body;
+    const newResource = { title, url, category };
+
+    // Add the new resource to the database
+    router.db.get('videos').push(newResource).write();
+
+    // Respond with the newly created resource
+    res.status(201).json(newResource);
+});
+
 const middlewares = jsonServer.defaults()
 
 server.use(middlewares)
@@ -19,15 +32,7 @@ server.use((req, res, next) => {
     next()
 })
 
-// New middleware for mocking POST requests
-server.use(jsonServer.bodyParser)
-server.post('/', (req, res) => {
-  const { title,url,category } = req.body
-  const newItem = { title,url,category }
-  console.log('entered')
-  console.log(newItem)
-  res.status(201).json(newItem)
-})
+server.use(jsonServer.bodyParser); // Parse JSON request bodies
 
 server.use(router)
 server.listen(process.env.PORT || 8000, () => {
