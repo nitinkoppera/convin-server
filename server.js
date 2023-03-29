@@ -21,9 +21,11 @@ server.use((req, res, next) => {
 
 // New middleware for mocking POST requests
 server.use(jsonServer.bodyParser)
-server.post('/videos', (req, res) => {
+server.post('/', (req, res) => {
   const { title,url,category } = req.body
   const newItem = { title,url,category }
+  console.log('entered')
+  console.log(newItem)
   res.status(201).json(newItem)
 })
 
